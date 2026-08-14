@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name — Portfolio</title>
+<meta name="description" content="Computer Science undergraduate, developer, and visual storyteller. Portfolio of projects, skills, and photography/videography work.">
+
+<!-- Fonts: Space Grotesk (display), IBM Plex Sans (body), IBM Plex Mono (labels/utility) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    --bg: #0c0f15;
+    --bg-soft: #10141c;
+    --surface: #141922;
+    --surface-2: #1a212c;
+    --border: rgba(255,255,255,0.09);
+    --border-strong: rgba(255,255,255,0.16);
+
+    --text: #eef1f6;
+    --text-muted: #8f97a8;
+    --text-dim: #5b6272;
+
+    --accent: #55d9c8;              /* tech: terminal cyan */
+    --accent-soft: rgba(85,217,200,0.12);
+    --accent-line: rgba(85,217,200,0.35);
+
+    --accent-warm: #f2a35c;         /* creative: golden-hour amber */
+    --accent-warm-soft: rgba(242,163,92,0.14);
+    --accent-warm-line: rgba(242,163,92,0.4);
+
+    --font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+    --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+    --radius-s: 6px;
+    --radius-m: 14px;
+    --maxw: 1160px;
+  }
+
+  /* ============ RESET / BASE ============ */
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; color-scheme: dark; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:var(--font-display); margin:0; color:var(--text); }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  /* subtle film-grain overlay — ties the "dark modern" shell to the photography theme */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:120px 120px;
+    opacity:0.035;
+    mix-blend-mode:overlay;
+  }
+
+  ::selection{ background:var(--accent); color:#0c0f15; }
+
+  ::-webkit-scrollbar{ width:10px; }
+  ::-webkit-scrollbar-track{ background:var(--bg); }
+  ::-webkit-scrollbar-thumb{ background:var(--surface-2); border-radius:10px; border:2px solid var(--bg); }
+
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 6vw; }
+  @media(min-width:1300px){ .wrap{ padding:0 40px; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:0.06em;
+    color:var(--accent); text-transform:none; margin-bottom:14px;
+  }
+  .eyebrow::before{ content:""; width:16px; height:1px; background:var(--accent); }
+  .section--creative .eyebrow{ color:var(--accent-warm); }
+  .section--creative .eyebrow::before{ background:var(--accent-warm); }
+
+  .section-head{ max-width:640px; margin-bottom:48px; }
+  .section-head h2{ font-size:clamp(1.9rem,3.2vw,2.6rem); letter-spacing:-0.01em; margin-bottom:12px; }
+  .section-head p{ color:var(--text-muted); font-size:1.02rem; }
+
+  section{ padding:100px 0; position:relative; z-index:2; border-bottom:1px solid var(--border); }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ============ VIEWFINDER FRAME (signature motif) ============ */
+  .vf-frame{ position:relative; }
+  .vf-corner{
+    position:absolute; width:22px; height:22px;
+    border-color:var(--accent);
+    opacity:0; transition:opacity .45s ease, transform .45s ease;
+    pointer-events:none;
+  }
+  .vf-corner--tl{ top:-1px; left:-1px; border-top:2px solid; border-left:2px solid; transform:translate(8px,8px); }
+  .vf-corner--tr{ top:-1px; right:-1px; border-top:2px solid; border-right:2px solid; transform:translate(-8px,8px); }
+  .vf-corner--bl{ bottom:-1px; left:-1px; border-bottom:2px solid; border-left:2px solid; transform:translate(8px,-8px); }
+  .vf-corner--br{ bottom:-1px; right:-1px; border-bottom:2px solid; border-right:2px solid; transform:translate(-8px,-8px); }
+  .vf-frame:hover .vf-corner,
+  .vf-frame:focus-within .vf-corner,
+  .vf-frame.is-active .vf-corner{ opacity:1; transform:translate(0,0); }
+  .section--creative .vf-corner{ border-color:var(--accent-warm); }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    padding:18px 6vw; display:flex; align-items:center; justify-content:space-between;
+    background:rgba(12,15,21,0); border-bottom:1px solid transparent;
+    transition:background .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+  }
+  header.scrolled{ background:rgba(12,15,21,0.82); backdrop-filter:blur(10px); border-color:var(--border); }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-mono); font-size:14px; }
+  .logo-mark{ width:34px; height:34px; display:grid; place-items:center; font-weight:600; font-size:12px; letter-spacing:0.02em; }
+  .logo-mark .vf-corner{ opacity:1; transform:translate(0,0); width:14px; height:14px; }
+
+  nav.links{ display:flex; gap:32px; }
+  nav.links a{
+    font-family:var(--font-mono); font-size:13px; color:var(--text-muted);
+    position:relative; padding:4px 0; transition:color .25s ease;
+  }
+  nav.links a:hover, nav.links a:focus-visible{ color:var(--text); }
+  nav.links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; height:1px; width:0;
+    background:var(--accent); transition:width .25s ease;
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{ width:100%; }
+
+  .nav-toggle{ display:none; background:none; border:1px solid var(--border-strong); border-radius:var(--radius-s); width:42px; height:42px; place-items:center; color:var(--text); }
+  .nav-toggle{ display:none; }
+
+  .mobile-menu{
+    position:fixed; inset:0; z-index:60; background:#0c0f15;
+    display:flex; flex-direction:column; justify-content:center; gap:28px; padding:6vw;
+    transform:translateY(-100%); transition:transform .4s cubic-bezier(.6,0,.2,1);
+  }
+  .mobile-menu.open{ transform:translateY(0); }
+  .mobile-menu a{ font-family:var(--font-display); font-size:2.2rem; font-weight:600; }
+  .mobile-menu .close-btn{ position:absolute; top:20px; right:6vw; background:none; border:1px solid var(--border-strong); border-radius:var(--radius-s); width:42px; height:42px; display:grid; place-items:center; color:var(--text); }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100svh; display:grid; grid-template-columns:minmax(260px,400px) 1fr;
+    gap:64px; align-items:center; padding:140px 6vw 70px; border-bottom:1px solid var(--border);
+  }
+  .portrait{
+    aspect-ratio:3/4; border-radius:var(--radius-m); overflow:hidden; position:relative;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(85,217,200,0.14), transparent 55%),
+      radial-gradient(circle at 80% 90%, rgba(242,163,92,0.10), transparent 50%),
+      linear-gradient(160deg, #171d27, #0d1017);
+    border:1px solid var(--border);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px;
+    text-align:center; padding:24px;
+  }
+  .portrait svg{ width:40px; height:40px; opacity:0.5; }
+  .portrait span{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); max-width:200px; }
+  /* To use a real photo: replace the contents of .portrait in the HTML with
+     <img src="your-photo.jpg" alt="Your Name"> and remove the placeholder padding/bg above if desired. */
+
+  .hero-copy .name{
+    font-size:clamp(2.6rem,7.2vw,5.4rem); font-weight:700; line-height:0.98; letter-spacing:-0.02em;
+  }
+  .hero-copy .name span{ display:block; }
+  .hero-copy .name .accent-text{ color:var(--accent); }
+  .hero-copy .tagline{ margin-top:22px; font-size:1.15rem; color:var(--text-muted); max-width:44ch; }
+  .hero-copy .meta-line{ margin-top:14px; font-family:var(--font-mono); font-size:13px; color:var(--text-dim); }
+
+  .cta-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13px; padding:13px 22px; border-radius:var(--radius-s);
+    display:inline-flex; align-items:center; gap:8px; transition:all .25s ease; border:1px solid var(--border-strong);
+  }
+  .btn--solid{ background:var(--accent); color:#0c0f15; border-color:var(--accent); font-weight:500; }
+  .btn--solid:hover{ background:transparent; color:var(--accent); }
+  .btn--ghost{ color:var(--text); }
+  .btn--ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .social-row{ display:flex; gap:14px; margin-top:38px; }
+  .social-row a{
+    width:38px; height:38px; border:1px solid var(--border); border-radius:var(--radius-s);
+    display:grid; place-items:center; color:var(--text-muted); transition:all .25s ease;
+  }
+  .social-row a:hover{ color:var(--accent); border-color:var(--accent-line); }
+  .social-row svg{ width:16px; height:16px; }
+
+  /* ============ REVEAL ============ */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.is-visible{ opacity:1; transform:translateY(0); }
+
+  /* ============ ABOUT ============ */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .about-grid p{ color:var(--text-muted); font-size:1.05rem; }
+  .about-grid p + p{ margin-top:16px; }
+  .about-stats{ display:grid; gap:22px; }
+  .about-stats .stat{ border-left:2px solid var(--accent-line); padding-left:16px; }
+  .about-stats .stat b{ display:block; font-family:var(--font-display); font-size:1.6rem; }
+  .about-stats .stat span{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); }
+
+  /* ============ SKILLS ============ */
+  .skills-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden; }
+  .skill-card{ background:var(--surface); padding:28px 24px; }
+  .skill-card h3{ font-family:var(--font-mono); font-size:13px; color:var(--accent); margin-bottom:16px; letter-spacing:0.02em; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:var(--font-mono); font-size:12.5px; padding:6px 11px; border-radius:20px;
+    border:1px solid var(--border-strong); color:var(--text-muted);
+  }
+
+  /* ============ PROJECTS ============ */
+  .project-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .project-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m);
+    overflow:hidden; display:flex; flex-direction:column; transition:border-color .3s ease, transform .3s ease;
+  }
+  .project-card:hover{ border-color:var(--accent-line); transform:translateY(-4px); }
+  .project-thumb{
+    aspect-ratio:16/10; position:relative;
+    background:linear-gradient(135deg,#182029,#0e1218);
+    display:grid; place-items:center;
+  }
+  .project-thumb svg{ width:28px; height:28px; opacity:0.35; }
+  .project-body{ padding:22px 22px 24px; display:flex; flex-direction:column; gap:12px; flex:1; }
+  .project-body h3{ font-size:1.15rem; }
+  .project-body p{ color:var(--text-muted); font-size:0.94rem; }
+  .project-links{ margin-top:auto; display:flex; gap:16px; padding-top:6px; }
+  .project-links a{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); display:flex; align-items:center; gap:6px; transition:color .2s ease; }
+  .project-links a:hover{ color:var(--accent); }
+  .project-links svg{ width:13px; height:13px; }
+  .project-card.more{ align-items:center; justify-content:center; text-align:center; padding:40px 24px; }
+  .project-card.more span{ font-family:var(--font-mono); font-size:13px; color:var(--text-muted); }
+
+  /* ============ TIMELINE ============ */
+  .timeline{ position:relative; padding-left:32px; }
+  .timeline::before{ content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--border-strong); }
+  .tl-item{ position:relative; padding-bottom:44px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-32px; top:4px; width:11px; height:11px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--accent);
+  }
+  .tl-head{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 20px; margin-bottom:8px; }
+  .tl-head h3{ font-size:1.15rem; }
+  .tl-head time{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); white-space:nowrap; }
+  .tl-org{ font-family:var(--font-mono); font-size:13px; color:var(--accent); margin-bottom:10px; display:block; }
+  .tl-item ul{ display:grid; gap:6px; }
+  .tl-item li{ color:var(--text-muted); font-size:0.94rem; padding-left:16px; position:relative; }
+  .tl-item li::before{ content:"—"; position:absolute; left:0; color:var(--text-dim); }
+
+  /* ============ CREATIVE ============ */
+  .section--creative{ background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%); }
+  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:150px; gap:14px; margin-bottom:64px; }
+  .gallery-tile{ border-radius:var(--radius-s); overflow:hidden; }
+  .gallery-tile:nth-child(1){ grid-column:span 2; grid-row:span 2; }
+  .gallery-tile:nth-child(4){ grid-row:span 2; }
+  .gallery-tile:nth-child(6){ grid-column:span 2; }
+  .g-placeholder{
+    width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    background:linear-gradient(155deg,#1b1710,#100e0b); position:relative; cursor:default;
+  }
+  .g-placeholder svg{ width:24px; height:24px; opacity:0.4; color:var(--accent-warm); }
+  .g-placeholder .g-label{ font-family:var(--font-mono); font-size:11px; color:var(--text-dim); }
+  .g-placeholder .g-exif{
+    position:absolute; bottom:10px; left:12px; right:12px; font-family:var(--font-mono);
+    font-size:10.5px; color:rgba(255,255,255,0.35); opacity:0; transition:opacity .3s ease;
+  }
+  .gallery-tile:hover .g-exif{ opacity:1; }
+  /* To use a real photo: replace .g-placeholder's contents with an <img> tag. */
+
+  .reel-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:52px; }
+  .reel-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-m); overflow:hidden;
+  }
+  .reel-thumb{
+    aspect-ratio:16/9; background:linear-gradient(160deg,#201a12,#100e0b); position:relative; display:grid; place-items:center;
+  }
+  .play-btn{ width:44px; height:44px; border-radius:50%; border:1.5px solid var(--accent-warm); display:grid; place-items:center; }
+  .play-btn svg{ width:14px; height:14px; fill:var(--accent-warm); margin-left:2px; }
+  .reel-body{ padding:18px 20px 20px; }
+  .reel-body h3{ font-size:1.02rem; margin-bottom:6px; }
+  .reel-body p{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+
+  .tools-label{ font-family:var(--font-mono); font-size:12.5px; color:var(--text-dim); margin-bottom:14px; }
+
+  /* ============ CONTACT ============ */
+  .contact-inner{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:end; }
+  .contact-inner h2{ font-size:clamp(2.2rem,4.5vw,3.4rem); letter-spacing:-0.02em; margin-bottom:20px; }
+  .contact-inner > div > p{ color:var(--text-muted); max-width:46ch; margin-bottom:30px; }
+  .contact-line{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--border); }
+  .contact-line span:first-child{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+  .contact-line a, .contact-line span.value{ font-size:1.05rem; }
+  .contact-line a:hover{ color:var(--accent); }
+  .sign-off{ font-family:var(--font-mono); font-size:13px; color:var(--text-dim); margin-top:28px; }
+
+  footer{ padding:30px 0 40px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; }
+  footer p{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
+
+  .top-btn{
+    position:fixed; right:26px; bottom:26px; z-index:40; width:44px; height:44px; border-radius:50%;
+    background:var(--surface-2); border:1px solid var(--border-strong); display:grid; place-items:center;
+    color:var(--text-muted); opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:all .3s ease; z-index:45;
+  }
+  .top-btn.show{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .top-btn:hover{ color:var(--accent); border-color:var(--accent-line); }
+  .top-btn svg{ width:16px; height:16px; }
+
+  /* ============ RESPONSIVE ============ */
+  @media(max-width:980px){
+    nav.links{ display:none; }
+    .nav-toggle{ display:grid; place-items:center; }
+    .hero{ grid-template-columns:1fr; gap:44px; padding-top:120px; }
+    .portrait{ max-width:320px; }
+    .about-grid{ grid-template-columns:1fr; gap:34px; }
+    .skills-grid{ grid-template-columns:repeat(2,1fr); }
+    .project-grid{ grid-template-columns:repeat(2,1fr); }
+    .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:130px; }
+    .gallery-tile:nth-child(1){ grid-column:span 2; grid-row:span 1; }
+    .reel-row{ grid-template-columns:1fr; }
+    .contact-inner{ grid-template-columns:1fr; gap:36px; }
+  }
+  @media(max-width:600px){
+    section{ padding:70px 0; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr; }
+    .gallery-grid{ grid-template-columns:1fr 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header id="header">
+  <a href="#top" class="logo">
+    <span class="logo-mark vf-frame">
+      YN
+      <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
+      <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
+    </span>
+  </a>
+  <nav class="links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#creative">Creative</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" id="navClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+  </button>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#experience">Experience</a>
+  <a href="#creative">Creative</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div id="top"></div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="portrait vf-frame" id="heroPortrait">
+    <!-- EDIT: replace this block's contents with <img src="your-photo.jpg" alt="Your Name"> -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+    <span>Add your photo here — square-ish portrait works best</span>
+    <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
+    <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
+  </div>
+
+  <div class="hero-copy">
+    <p class="eyebrow">CSE UNDERGRAD — DEVELOPER — VISUAL STORYTELLER</p>
+    <h1 class="name"><span>Your</span><span class="accent-text">Name</span></h1>
+    <p class="tagline"><!-- EDIT: your one-line pitch -->I build software by day and chase good light whenever I can — currently learning to make both look effortless.</p>
+    <p class="meta-line"><!-- EDIT: location / availability -->Based in [Your City] · Open to internships</p>
+
+    <div class="cta-row">
+      <a href="#projects" class="btn btn--solid">View Projects</a>
+      <a href="#" class="btn btn--ghost" download><!-- EDIT: link to your resume PDF -->Download Resume</a>
+    </div>
+
+    <div class="social-row">
+      <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
+      <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <p class="eyebrow">// about</p>
+      <h2 style="margin-bottom:22px;">A bit about me</h2>
+      <p><!-- EDIT: real bio -->I'm a Computer Science undergraduate who likes building things that work well — and, outside of a code editor, likes making things that look good too. Photography and videography started as a hobby and turned into a second language I think in.</p>
+      <p>I'm comfortable moving between a terminal and a camera body, and I'm always looking for problems — technical or visual — worth spending a weekend on.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat"><b>[X]th</b><span>SEMESTER — B.TECH CSE</span></div>
+      <div class="stat"><b>[X]+</b><span>PROJECTS BUILT</span></div>
+      <div class="stat"><b>[X]+</b><span>SHOOTS / EDITS DELIVERED</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">// tech.skills</p>
+      <h2>What I build with</h2>
+      <p>Core languages, tools, and fundamentals I work with day to day.</p>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h3>LANGUAGES</h3>
+        <div class="chip-row">
+          <span class="chip">C++</span><span class="chip">Java</span><span class="chip">Python</span><span class="chip">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>WEB & FRAMEWORKS</h3>
+        <div class="chip-row">
+          <span class="chip">HTML/CSS</span><span class="chip">React</span><span class="chip">Node.js</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>TOOLS & DATA</h3>
+        <div class="chip-row">
+          <span class="chip">Git/GitHub</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Linux</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>FOUNDATIONS</h3>
+        <div class="chip-row">
+          <span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">OS</span><span class="chip">Networks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">// projects</p>
+      <h2>Selected builds</h2>
+      <p>A few things I've written, broken, and fixed again.</p>
+    </div>
+    <div class="project-grid reveal">
+
+      <div class="project-card">
+        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
+        <div class="project-body">
+          <h3>Project One</h3>
+          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
+          <div class="chip-row"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MongoDB</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>Live</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 17V7l6 5 6-5v10"/><circle cx="19" cy="8" r="2"/></svg></div>
+        <div class="project-body">
+          <h3>Project Two</h3>
+          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
+          <div class="chip-row"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">MySQL</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
+            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>Live</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="project-body">
+          <h3>Project Three</h3>
+          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
+          <div class="chip-row"><span class="chip">Java</span><span class="chip">DSA</span></div>
+          <div class="project-links">
+            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
+          </div>
+        </div>
+      </div>
+
+      <a href="#" class="project-card more">
+        <span>More on GitHub →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE / EDUCATION ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">// experience</p>
+      <h2>Path so far</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-head"><h3>B.Tech, Computer Science & Engineering</h3><time>[Start Year] — [End Year]</time></div>
+        <span class="tl-org">[Your University]</span>
+        <ul>
+          <li>CGPA: [X.XX / 10]</li>
+          <li>Relevant coursework: Data Structures, DBMS, Operating Systems</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head"><h3>[Internship / Job Title]</h3><time>[Month Year] — [Month Year]</time></div>
+        <span class="tl-org">[Company Name]</span>
+        <ul>
+          <li>What you did, in one line</li>
+          <li>An outcome or metric, if you have one</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head"><h3>[Hackathon / Leadership Role]</h3><time>[Month Year]</time></div>
+        <span class="tl-org">[Organization]</span>
+        <ul>
+          <li>What it was and what you contributed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CREATIVE ============ -->
+<section id="creative" class="section--creative">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">// creative.mode = true</p>
+      <h2>Through the lens</h2>
+      <p>Photography and videography — the part of me that doesn't need Wi-Fi.</p>
+    </div>
+
+    <div class="gallery-grid reveal">
+      <!-- 6 placeholder tiles — replace each .g-placeholder with an <img> tag when ready -->
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/1.8]</span></div></div>
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/2]</span></div></div>
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 24mm f/4]</span></div></div>
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 85mm f/1.4]</span></div></div>
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/2.8]</span></div></div>
+      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/1.8]</span></div></div>
+    </div>
+
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:24px;">// reel</p>
+      <div class="reel-row">
+        <div class="reel-card">
+          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
+          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
+        </div>
+        <div class="reel-card">
+          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
+          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
+        </div>
+        <div class="reel-card">
+          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
+          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p class="tools-label">EDITED WITH</p>
+      <div class="chip-row">
+        <span class="chip">Premiere Pro</span><span class="chip">DaVinci Resolve</span><span class="chip">Photoshop</span>
+        <span class="chip">Lightroom</span><span class="chip">After Effects</span><span class="chip">CapCut</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap contact-inner">
+    <div class="reveal">
+      <p class="eyebrow">// contact</p>
+      <h2>Let's talk.</h2>
+      <p>Open to internships, collaborations, and interesting problems — technical or visual.</p>
+      <p class="sign-off">// always open to good ideas and good light</p>
+    </div>
+    <div class="reveal">
+      <div class="contact-line"><span>EMAIL</span><a href="mailto:you@example.com"><!-- EDIT -->you@example.com</a></div>
+      <div class="contact-line"><span>PHONE</span><span class="value"><!-- EDIT -->+00 000 000 0000</span></div>
+      <div class="contact-line"><span>LOCATION</span><span class="value"><!-- EDIT -->[Your City, Country]</span></div>
+      <div class="social-row" style="margin-top:24px;">
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5v-5z" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
+    <p>© <span id="year"></span> [Your Name]. Built with intention.</p>
+    <p>Designed &amp; coded from scratch</p>
+  </div>
+</footer>
+
+<button class="top-btn" id="topBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Header background on scroll
+  const header = document.getElementById('header');
+  const topBtn = document.getElementById('topBtn');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 40;
+    header.classList.toggle('scrolled', scrolled);
+    topBtn.classList.toggle('show', window.scrollY > 600);
+  });
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const navClose = document.getElementById('navClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function openMenu(){ mobileMenu.classList.add('open'); navToggle.setAttribute('aria-expanded','true'); }
+  function closeMenu(){ mobileMenu.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); }
+  navToggle.addEventListener('click', openMenu);
+  navClose.addEventListener('click', closeMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  revealEls.forEach(el => io.observe(el));
+
+  // Hero portrait "autofocus snap" on load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('heroPortrait').classList.add('is-active');
+    }, 350);
+  });
+</script>
+
+</body>
+</html>
