@@ -19,7 +19,7 @@
 <header id="header">
   <a href="#top" class="logo">
     <span class="logo-mark vf-frame">
-      MH
+      <img src="assets/nav.png" alt="Shanto">
       <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
       <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
     </span>
@@ -55,7 +55,6 @@
 <section class="hero">
   <canvas id="starfield"></canvas>
   <div class="portrait vf-frame" id="heroPortrait">
-    <!-- Image loads if assets/profile_pic.jpg exists; otherwise the placeholder below stays visible. -->
     <img src="assets/profile_pic.jpg" alt="Md. Iqbal Hasan"
          onload="this.parentElement.classList.add('img-loaded')"
          onerror="this.parentElement.classList.add('img-missing')">
@@ -66,21 +65,25 @@
   </div>
 
   <div class="hero-copy">
-    <p class="eyebrow">CSE UNDERGRAD — APP · WEB · AI</p>
+    <p class="eyebrow">CSE UNDERGRAD — APP · WEB · AI  — VISUAL STORYTELER</p>
     <h1 class="name"><span>Md. Iqbal</span><span class="accent-text">Hasan</span></h1>
-    <p class="tagline">I build software across apps, the web, and AI — sharpened by hackathons and competitive programming — and spend clear nights chasing comets and planetary alignments through a lens.</p>
-    <p class="meta-line"><!-- EDIT: location / availability -->Based in [Your City] · Open to internships</p>
+    <p class="tagline">A Computer Science undergraduate with a focus on software development, Web Development and a parallel practice in photography and videography.</p>
+    <p class="meta-line"> Based in <b>Rajshahi, Bangladesh</b> · Open to internships</p>
 
     <div class="cta-row">
       <a href="#projects" class="btn btn--solid">View Projects</a>
-      <a href="#" class="btn btn--ghost" download><!-- EDIT: link to your resume PDF -->Download Resume</a>
+      <a href="#" class="btn btn--ghost" download><!--link resume PDF -->Download Resume</a>
     </div>
 
     <div class="social-row">
-      <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
-      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
-      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
-      <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></a>
+      <a href="https://github.com/iqbalhasanshanto-dev" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/md-iqbal-hasan-7343b6406" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
+      <a href="https://www.instagram.com/iqbal_hasan_shanto/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
+      <a href="https://codeforces.com/profile/md_iqbal_hasan_" aria-label="Codeforces"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="1.5" y="10.5" width="6" height="10" rx="1.8"/><rect x="9" y="4" width="6" height="16.5" rx="1.8"/><rect x="16.5" y="7.5" width="6" height="13" rx="1.8"/></svg></a>
+      <!-- <a href="#" aria-label="LeetCode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3L7 10.5a2.3 2.3 0 0 0 0 3.2l4.3 4.3a2.3 2.3 0 0 0 3.2 0L16 16.5"/><path d="M9.5 12.5H20"/><path d="M13 20.5c-1 .7-2.3.7-3.2-.2l-4.3-4.3a2.3 2.3 0 0 1 0-3.2l4.3-4.3"/></svg></a> -->
+      <!-- <a href="#" aria-label="CodeChef"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 9c-2 0-3.6-1.4-3.6-3.3S6.5 2.5 8.3 2.5c.4 0 .8.1 1.1.2C9.9 1.5 11 .8 12.2.8c1.3 0 2.4.7 2.9 1.8.3-.1.7-.2 1.1-.2 1.8 0 3.4 1.4 3.4 3.2S18 8.7 16.2 8.9" fill="none"/><path d="M6.5 9h11c.6 0 1 .5 1 1.1 0 4.8-2.8 8.6-6.5 8.6S5.5 14.9 5.5 10.1c0-.6.4-1.1 1-1.1z"/><path d="M9.5 22h5"/><path d="M10.5 19.5v2M13.5 19.5v2"/></svg></a> -->
+      <!-- <a href="#" aria-label="HackerRank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8.7 5v10L12 22l-8.7-5V7L12 2z"/><path d="M8.5 8v8M15.5 8v8M8.5 12h7"/></svg></a> -->
+      <a href="mailto:mdiqbalhasan.dev@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></a>
     </div>
 
     <div class="typing-line"><span id="typingLine"></span><span class="cursor">▌</span></div>
@@ -91,15 +94,15 @@
 <section id="about">
   <div class="wrap about-grid">
     <div class="reveal">
-      <p class="eyebrow">// about</p>
+      <p class="eyebrow">About Me</p>
       <h2 style="margin-bottom:22px;">A bit about me</h2>
-      <p>I'm a Computer Science undergraduate with a foundation built from the ground up — starting with low-level logic in C and C++, then extending it into full applications across the web and beyond. I like problems with structure: the kind you can break down, reason about, and optimize.</p>
+      <p>I'm a Computer Science undergraduate with a foundation built from the ground up — starting with C and C++, then extending into full applications across the web and beyond. I like problems with structure: the kind you can break down, reason about, and optimize. I've also been solving problems across different coding platforms to sharpen my logic and broaden what I know.</p>
       <p>That instinct is what pulls me toward algorithms and competitive programming, and it's the same one I bring to building software — where I care as much about how something scales as whether it merely works. Outside the editor, I point a camera at the sky and edit what I find.</p>
     </div>
     <div class="about-stats reveal">
-      <div class="stat"><b>[X]th</b><span>SEMESTER — B.TECH CSE</span></div>
+      <div class="stat"><b>3rd</b><span>SEMESTER — B.Sc. in CSE</span></div>
       <div class="stat"><b>3</b><span>ACTIVE PROJECTS</span></div>
-      <div class="stat"><b>[X]+</b><span>HACKATHONS & CONTESTS</span></div>
+      <div class="stat"><b>6+</b><span>HACKATHONS & CONTESTS</span></div>
     </div>
   </div>
 </section>
@@ -108,7 +111,7 @@
 <section id="skills">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">// tech.skills</p>
+      <p class="eyebrow">Tech Stack</p>
       <h2>What I build with</h2>
       <p>Ranked honestly, by depth rather than breadth.</p>
     </div>
@@ -116,7 +119,7 @@
       <div class="tier-card">
         <div class="tier-head">
           <h3>Fluent</h3>
-          <span class="tier-note">low-level, daily</span>
+          <span class="tier-note"><!--Notes --></span>
         </div>
         <div class="chip-row"><span class="chip">C</span><span class="chip">C++</span></div>
         <div class="tier-bar"><div class="tier-bar-fill" style="--fill:95%"></div></div>
@@ -124,27 +127,27 @@
       <div class="tier-card">
         <div class="tier-head">
           <h3>Proficient</h3>
-          <span class="tier-note">active, shipping</span>
+          <span class="tier-note"><!--Notes --></span>
         </div>
-        <div class="chip-row"><span class="chip">JavaScript</span><span class="chip">Node.js</span></div>
+        <div class="chip-row"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Node.js</span></div>
         <div class="tier-bar"><div class="tier-bar-fill" style="--fill:70%"></div></div>
       </div>
       <div class="tier-card">
         <div class="tier-head">
-          <h3>Familiar</h3>
-          <span class="tier-note">growing</span>
+          <h3>Learning</h3>
+          <span class="tier-note"><!--Notes --></span>
         </div>
-        <div class="chip-row"><span class="chip">Python</span></div>
+        <div class="chip-row"><span class="chip">Python</span><span class="chip">Typescript</span></div>
         <div class="tier-bar"><div class="tier-bar-fill" style="--fill:40%"></div></div>
       </div>
     </div>
 
-    <div class="found-row reveal">
+    <!-- <div class="found-row reveal">
       <p class="tools-label">FOUNDATIONS</p>
       <div class="chip-row">
         <span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">OS</span><span class="chip">Networks</span>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 
@@ -152,11 +155,10 @@
 <section id="projects">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">// projects</p>
+      <p class="eyebrow">Projects</p>
       <h2>Selected builds</h2>
       <p>A running log, not a finished list — new builds get added here as they ship.</p>
     </div>
-    <!-- Populated by script.js from the PROJECTS array — add future hardware/AI projects there, not here. -->
     <div class="project-grid reveal" id="projectGrid"></div>
   </div>
 </section>
@@ -165,16 +167,16 @@
 <section id="experience">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">// experience</p>
+      <p class="eyebrow">Experience</p>
       <h2>Path so far</h2>
     </div>
     <div class="timeline reveal">
       <div class="tl-item">
-        <div class="tl-head"><h3>B.Tech, Computer Science &amp; Engineering</h3><time>[Start Year] — [End Year]</time></div>
-        <span class="tl-org">[Your University]</span>
+        <div class="tl-head"><h3>B.Sc. in Computer Science &amp; Engineering</h3><time>[Start Year] — [End Year]</time></div>
+        <span class="tl-org">Varendra University</span>
         <ul>
-          <li>CGPA: [X.XX / 10]</li>
-          <li>Relevant coursework: Data Structures, DBMS, Operating Systems</li>
+          <li>CGPA: 4.00 / 4.00 in previous semester</li>
+          <li>Relevant coursework: Data Structures, System Design, Object Oriented Programming</li>
         </ul>
       </div>
 
@@ -182,7 +184,7 @@
         <div class="tl-head"><h3>University Programming Club Competition</h3><time>May 2026</time></div>
         <span class="tl-org">University Programming Club</span>
         <ul>
-          <li>Competed in the collegiate programming contest, solving algorithmic problems under time pressure alongside a team.</li>
+          <li>Competed in Code Harbour, Navigating Challenges : Season 4, Ai hackathons,  RSVU presents Robo Spark 1.0 and so on</li>
         </ul>
       </div>
 
@@ -195,10 +197,10 @@
       </div>
 
       <div class="tl-item">
-        <div class="tl-head"><h3>MST Automobile Techno Session</h3><time>2026</time></div>
+        <div class="tl-head"><h3>BYD presents 1st Bangladesh Formula Student and Automotive Engineering Summit </h3><time>2026</time></div>
         <span class="tl-org">MST</span>
         <ul>
-          <li>Took part in the technical session, engaging with the engineering concepts behind the automotive systems covered.</li>
+          <li>Took part in the technical session of BYD presents 1st Bangladesh Formula Student and Automotive Engineering Summit, Organized by MIST Blitz, engaging with the engineering concepts behind the automotive systems covered.</li>
         </ul>
         <a href="#" target="_blank" rel="noopener" class="btn btn--ghost tl-cta"><!-- EDIT: link to certificate --> View Certificate</a>
       </div>
@@ -210,7 +212,7 @@
 <section id="creative" class="section--creative">
   <div class="wrap">
     <div class="section-head reveal">
-      <p class="eyebrow">// creative.mode = true</p>
+      <p class="eyebrow">Creative Part</p>
       <h2>Through the lens</h2>
       <p>Astrophotography and long exposures — planetary alignments, comets, and the occasional coastline. The part of me that doesn't need Wi-Fi.</p>
     </div>
@@ -235,16 +237,16 @@
     </div>
 
     <div class="reveal">
-      <p class="eyebrow" style="margin-bottom:24px;">// reel</p>
+      <p class="eyebrow" style="margin-bottom:24px;">Reels</p>
       <!-- Populated by script.js from the VIDEOS array -->
       <div class="reel-row" id="reelRow"></div>
     </div>
 
     <div class="reveal">
-      <p class="tools-label">EDITED WITH</p>
+      <p class="tools-label">Fimiliar with </p>
       <div class="chip-row">
-        <span class="chip">Premiere Pro</span><span class="chip">DaVinci Resolve</span><span class="chip">Photoshop</span>
-        <span class="chip">Lightroom</span><span class="chip">After Effects</span><span class="chip">CapCut</span>
+        <span class="chip">Premiere Pro</span><span class="chip">Photoshop</span>
+        <span class="chip">Lightroom</span><span class="chip">CapCut</span><span class="chip">Figma</span>
       </div>
     </div>
   </div>
@@ -254,19 +256,18 @@
 <section id="contact">
   <div class="wrap contact-inner">
     <div class="reveal">
-      <p class="eyebrow">// contact</p>
+      <p class="eyebrow">Contact</p>
       <h2>Let's talk.</h2>
       <p>Open to internships, hackathon teams, and interesting problems — technical or visual.</p>
-      <p class="sign-off">// always open to good ideas and good light</p>
+      <p class="sign-off"> always open to good ideas and good light</p>
     </div>
     <div class="reveal">
-      <div class="contact-line"><span>EMAIL</span><a href="mailto:you@example.com"><!-- EDIT -->you@example.com</a></div>
-      <div class="contact-line"><span>LOCATION</span><span class="value"><!-- EDIT -->[Your City, Country]</span></div>
+      <div class="contact-line"><span>EMAIL</span><a href="mailto:mdiqbalhasan.dev@gmail.com">mdiqbalhasan.dev@gmail.com</a></div>
+      <div class="contact-line"><span>LOCATION</span><span class="value">Rajshahi, Bangladesh</span></div>
       <div class="social-row" style="margin-top:24px;">
-        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
-        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5v-5z" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://github.com/iqbalhasanshanto-dev" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
+        <a href="https://www.linkedin.com/in/md-iqbal-hasan-7343b6406" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8.25h4V23h-4V8.25zM8.5 8.25h3.83v2.01h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.72c0-1.6-.03-3.66-2.23-3.66-2.24 0-2.58 1.75-2.58 3.55V23h-4V8.25z"/></svg></a>
+        <a href="https://www.instagram.com/iqbal_hasan_shanto/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
       </div>
     </div>
   </div>
