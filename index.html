@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Name — Portfolio</title>
-<meta name="description" content="Computer Science undergraduate, developer, and visual storyteller. Portfolio of projects, skills, and photography/videography work.">
+<title>Md. Iqbal Hasan — Portfolio</title>
+<meta name="description" content="Computer Science undergraduate building across app development, web development, and AI — with a parallel practice in astrophotography and video editing.">
 
 <!-- Fonts: Space Grotesk (display), IBM Plex Sans (body), IBM Plex Mono (labels/utility) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,7 +19,7 @@
 <header id="header">
   <a href="#top" class="logo">
     <span class="logo-mark vf-frame">
-      YN
+      MH
       <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
       <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
     </span>
@@ -53,18 +53,22 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero">
+  <canvas id="starfield"></canvas>
   <div class="portrait vf-frame" id="heroPortrait">
-    <!-- EDIT: replace this block's contents with <img src="your-photo.jpg" alt="Your Name"> -->
+    <!-- Image loads if assets/profile_pic.jpg exists; otherwise the placeholder below stays visible. -->
+    <img src="assets/profile_pic.jpg" alt="Md. Iqbal Hasan"
+         onload="this.parentElement.classList.add('img-loaded')"
+         onerror="this.parentElement.classList.add('img-missing')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
-    <span>Add your photo here — square-ish portrait works best</span>
+    <span>Drop <code>profile_pic.jpg</code> into /assets to replace this</span>
     <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
     <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
   </div>
 
   <div class="hero-copy">
-    <p class="eyebrow">CSE UNDERGRAD — DEVELOPER — VISUAL STORYTELLER</p>
-    <h1 class="name"><span>Your</span><span class="accent-text">Name</span></h1>
-    <p class="tagline"><!-- EDIT: your one-line pitch -->I build software by day and chase good light whenever I can — currently learning to make both look effortless.</p>
+    <p class="eyebrow">CSE UNDERGRAD — APP · WEB · AI</p>
+    <h1 class="name"><span>Md. Iqbal</span><span class="accent-text">Hasan</span></h1>
+    <p class="tagline">I build software across apps, the web, and AI — sharpened by hackathons and competitive programming — and spend clear nights chasing comets and planetary alignments through a lens.</p>
     <p class="meta-line"><!-- EDIT: location / availability -->Based in [Your City] · Open to internships</p>
 
     <div class="cta-row">
@@ -78,6 +82,8 @@
       <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1"/></svg></a>
       <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="M3.5 6.5l8.5 6 8.5-6"/></svg></a>
     </div>
+
+    <div class="typing-line"><span id="typingLine"></span><span class="cursor">▌</span></div>
   </div>
 </section>
 
@@ -87,13 +93,13 @@
     <div class="reveal">
       <p class="eyebrow">// about</p>
       <h2 style="margin-bottom:22px;">A bit about me</h2>
-      <p><!-- EDIT: real bio -->I'm a Computer Science undergraduate who likes building things that work well — and, outside of a code editor, likes making things that look good too. Photography and videography started as a hobby and turned into a second language I think in.</p>
-      <p>I'm comfortable moving between a terminal and a camera body, and I'm always looking for problems — technical or visual — worth spending a weekend on.</p>
+      <p>I'm a Computer Science undergraduate with a foundation built from the ground up — starting with low-level logic in C and C++, then extending it into full applications across the web and beyond. I like problems with structure: the kind you can break down, reason about, and optimize.</p>
+      <p>That instinct is what pulls me toward algorithms and competitive programming, and it's the same one I bring to building software — where I care as much about how something scales as whether it merely works. Outside the editor, I point a camera at the sky and edit what I find.</p>
     </div>
     <div class="about-stats reveal">
       <div class="stat"><b>[X]th</b><span>SEMESTER — B.TECH CSE</span></div>
-      <div class="stat"><b>[X]+</b><span>PROJECTS BUILT</span></div>
-      <div class="stat"><b>[X]+</b><span>SHOOTS / EDITS DELIVERED</span></div>
+      <div class="stat"><b>3</b><span>ACTIVE PROJECTS</span></div>
+      <div class="stat"><b>[X]+</b><span>HACKATHONS & CONTESTS</span></div>
     </div>
   </div>
 </section>
@@ -104,32 +110,39 @@
     <div class="section-head reveal">
       <p class="eyebrow">// tech.skills</p>
       <h2>What I build with</h2>
-      <p>Core languages, tools, and fundamentals I work with day to day.</p>
+      <p>Ranked honestly, by depth rather than breadth.</p>
     </div>
-    <div class="skills-grid reveal">
-      <div class="skill-card">
-        <h3>LANGUAGES</h3>
-        <div class="chip-row">
-          <span class="chip">C++</span><span class="chip">Java</span><span class="chip">Python</span><span class="chip">JavaScript</span>
+    <div class="tier-grid reveal">
+      <div class="tier-card">
+        <div class="tier-head">
+          <h3>Fluent</h3>
+          <span class="tier-note">low-level, daily</span>
         </div>
+        <div class="chip-row"><span class="chip">C</span><span class="chip">C++</span></div>
+        <div class="tier-bar"><div class="tier-bar-fill" style="--fill:95%"></div></div>
       </div>
-      <div class="skill-card">
-        <h3>WEB & FRAMEWORKS</h3>
-        <div class="chip-row">
-          <span class="chip">HTML/CSS</span><span class="chip">React</span><span class="chip">Node.js</span>
+      <div class="tier-card">
+        <div class="tier-head">
+          <h3>Proficient</h3>
+          <span class="tier-note">active, shipping</span>
         </div>
+        <div class="chip-row"><span class="chip">JavaScript</span><span class="chip">Node.js</span></div>
+        <div class="tier-bar"><div class="tier-bar-fill" style="--fill:70%"></div></div>
       </div>
-      <div class="skill-card">
-        <h3>TOOLS & DATA</h3>
-        <div class="chip-row">
-          <span class="chip">Git/GitHub</span><span class="chip">MySQL</span><span class="chip">MongoDB</span><span class="chip">Linux</span>
+      <div class="tier-card">
+        <div class="tier-head">
+          <h3>Familiar</h3>
+          <span class="tier-note">growing</span>
         </div>
+        <div class="chip-row"><span class="chip">Python</span></div>
+        <div class="tier-bar"><div class="tier-bar-fill" style="--fill:40%"></div></div>
       </div>
-      <div class="skill-card">
-        <h3>FOUNDATIONS</h3>
-        <div class="chip-row">
-          <span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">OS</span><span class="chip">Networks</span>
-        </div>
+    </div>
+
+    <div class="found-row reveal">
+      <p class="tools-label">FOUNDATIONS</p>
+      <div class="chip-row">
+        <span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">DBMS</span><span class="chip">OS</span><span class="chip">Networks</span>
       </div>
     </div>
   </div>
@@ -141,53 +154,10 @@
     <div class="section-head reveal">
       <p class="eyebrow">// projects</p>
       <h2>Selected builds</h2>
-      <p>A few things I've written, broken, and fixed again.</p>
+      <p>A running log, not a finished list — new builds get added here as they ship.</p>
     </div>
-    <div class="project-grid reveal">
-
-      <div class="project-card">
-        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
-        <div class="project-body">
-          <h3>Project One</h3>
-          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
-          <div class="chip-row"><span class="chip">React</span><span class="chip">Node.js</span><span class="chip">MongoDB</span></div>
-          <div class="project-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
-            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>Live</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 17V7l6 5 6-5v10"/><circle cx="19" cy="8" r="2"/></svg></div>
-        <div class="project-body">
-          <h3>Project Two</h3>
-          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
-          <div class="chip-row"><span class="chip">Python</span><span class="chip">Flask</span><span class="chip">MySQL</span></div>
-          <div class="project-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
-            <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>Live</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 3"/></svg></div>
-        <div class="project-body">
-          <h3>Project Three</h3>
-          <p><!-- EDIT -->One-line description of what this project does and the problem it solves.</p>
-          <div class="chip-row"><span class="chip">Java</span><span class="chip">DSA</span></div>
-          <div class="project-links">
-            <a href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg>Code</a>
-          </div>
-        </div>
-      </div>
-
-      <a href="#" class="project-card more">
-        <span>More on GitHub →</span>
-      </a>
-
-    </div>
+    <!-- Populated by script.js from the PROJECTS array — add future hardware/AI projects there, not here. -->
+    <div class="project-grid reveal" id="projectGrid"></div>
   </div>
 </section>
 
@@ -200,27 +170,37 @@
     </div>
     <div class="timeline reveal">
       <div class="tl-item">
-        <div class="tl-head"><h3>B.Tech, Computer Science & Engineering</h3><time>[Start Year] — [End Year]</time></div>
+        <div class="tl-head"><h3>B.Tech, Computer Science &amp; Engineering</h3><time>[Start Year] — [End Year]</time></div>
         <span class="tl-org">[Your University]</span>
         <ul>
           <li>CGPA: [X.XX / 10]</li>
           <li>Relevant coursework: Data Structures, DBMS, Operating Systems</li>
         </ul>
       </div>
+
       <div class="tl-item">
-        <div class="tl-head"><h3>[Internship / Job Title]</h3><time>[Month Year] — [Month Year]</time></div>
-        <span class="tl-org">[Company Name]</span>
+        <div class="tl-head"><h3>University Programming Club Competition</h3><time>May 2026</time></div>
+        <span class="tl-org">University Programming Club</span>
         <ul>
-          <li>What you did, in one line</li>
-          <li>An outcome or metric, if you have one</li>
+          <li>Competed in the collegiate programming contest, solving algorithmic problems under time pressure alongside a team.</li>
         </ul>
       </div>
+
       <div class="tl-item">
-        <div class="tl-head"><h3>[Hackathon / Leadership Role]</h3><time>[Month Year]</time></div>
-        <span class="tl-org">[Organization]</span>
+        <div class="tl-head"><h3>Hackathons &amp; Programming Contests</h3><time>Ongoing</time></div>
+        <span class="tl-org">Various</span>
         <ul>
-          <li>What it was and what you contributed</li>
+          <li>Regular participant in hackathons and competitive programming contests — building and shipping under a clock.</li>
         </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head"><h3>MST Automobile Techno Session</h3><time>2026</time></div>
+        <span class="tl-org">MST</span>
+        <ul>
+          <li>Took part in the technical session, engaging with the engineering concepts behind the automotive systems covered.</li>
+        </ul>
+        <a href="#" target="_blank" rel="noopener" class="btn btn--ghost tl-cta"><!-- EDIT: link to certificate --> View Certificate</a>
       </div>
     </div>
   </div>
@@ -232,20 +212,13 @@
     <div class="section-head reveal">
       <p class="eyebrow">// creative.mode = true</p>
       <h2>Through the lens</h2>
-      <p>Photography and videography — the part of me that doesn't need Wi-Fi.</p>
+      <p>Astrophotography and long exposures — planetary alignments, comets, and the occasional coastline. The part of me that doesn't need Wi-Fi.</p>
     </div>
 
     <div class="slideshow reveal">
-      <div class="slideshow-viewport vf-frame" id="slideshowViewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Photography gallery">
-        <div class="slides-track" id="slidesTrack">
-          <!-- 6 placeholder slides — replace each .g-placeholder with an <img> tag (covering the .slide) when ready -->
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/1.8]</span></div></div>
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/2]</span></div></div>
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 24mm f/4]</span></div></div>
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 85mm f/1.4]</span></div></div>
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/2.8]</span></div></div>
-          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/1.8]</span></div></div>
-        </div>
+      <div class="slideshow-viewport vf-frame" id="slideshowViewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Astrophotography gallery">
+        <!-- Populated by script.js from the GALLERY array. To use a real photo, add an imageUrl to that entry. -->
+        <div class="slides-track" id="slidesTrack"></div>
 
         <button class="slide-btn prev" id="slidePrev" aria-label="Previous photo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -263,20 +236,8 @@
 
     <div class="reveal">
       <p class="eyebrow" style="margin-bottom:24px;">// reel</p>
-      <div class="reel-row">
-        <div class="reel-card">
-          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
-          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
-        </div>
-        <div class="reel-card">
-          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
-          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
-        </div>
-        <div class="reel-card">
-          <div class="reel-thumb"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div></div>
-          <div class="reel-body"><h3>[Video Title]</h3><p>[Link to YouTube / Vimeo / Drive]</p></div>
-        </div>
-      </div>
+      <!-- Populated by script.js from the VIDEOS array -->
+      <div class="reel-row" id="reelRow"></div>
     </div>
 
     <div class="reveal">
@@ -295,12 +256,11 @@
     <div class="reveal">
       <p class="eyebrow">// contact</p>
       <h2>Let's talk.</h2>
-      <p>Open to internships, collaborations, and interesting problems — technical or visual.</p>
+      <p>Open to internships, hackathon teams, and interesting problems — technical or visual.</p>
       <p class="sign-off">// always open to good ideas and good light</p>
     </div>
     <div class="reveal">
       <div class="contact-line"><span>EMAIL</span><a href="mailto:you@example.com"><!-- EDIT -->you@example.com</a></div>
-      <div class="contact-line"><span>PHONE</span><span class="value"><!-- EDIT -->+00 000 000 0000</span></div>
       <div class="contact-line"><span>LOCATION</span><span class="value"><!-- EDIT -->[Your City, Country]</span></div>
       <div class="social-row" style="margin-top:24px;">
         <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.43-2.69 5.4-5.26 5.69.42.36.78 1.07.78 2.16v3.2c0 .32.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.73 18.27.5 12 .5z"/></svg></a>
@@ -310,11 +270,32 @@
       </div>
     </div>
   </div>
+
+  <div class="wrap reveal">
+    <form id="contactForm" class="contact-form vf-frame">
+      <div class="form-row">
+        <div>
+          <label class="form-label" for="cf-name">Name</label>
+          <input class="form-input" id="cf-name" name="name" type="text" placeholder="Jane Doe" required>
+        </div>
+        <div>
+          <label class="form-label" for="cf-email">Email</label>
+          <input class="form-input" id="cf-email" name="email" type="email" placeholder="jane@email.com" required>
+        </div>
+      </div>
+      <label class="form-label" for="cf-message">Message</label>
+      <textarea class="form-input" id="cf-message" name="message" rows="4" placeholder="What's on your mind?" required></textarea>
+      <button type="submit" class="btn btn--solid">Send message</button>
+      <p id="formStatus" class="form-status"></p>
+      <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
+      <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
+    </form>
+  </div>
 </section>
 
 <footer>
   <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
-    <p>© <span id="year"></span> [Your Name]. Built with intention.</p>
+    <p>© <span id="year"></span> Md. Iqbal Hasan. Built with intention.</p>
     <p>Designed &amp; coded from scratch</p>
   </div>
 </footer>
