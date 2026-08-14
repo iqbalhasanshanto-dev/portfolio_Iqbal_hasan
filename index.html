@@ -264,23 +264,50 @@
 
   /* ============ CREATIVE ============ */
   .section--creative{ background:linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%); }
-  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:150px; gap:14px; margin-bottom:64px; }
-  .gallery-tile{ border-radius:var(--radius-s); overflow:hidden; }
-  .gallery-tile:nth-child(1){ grid-column:span 2; grid-row:span 2; }
-  .gallery-tile:nth-child(4){ grid-row:span 2; }
-  .gallery-tile:nth-child(6){ grid-column:span 2; }
+
+  /* -- Slideshow -- */
+  .slideshow{ margin-bottom:64px; }
+  .slideshow-viewport{
+    position:relative; aspect-ratio:16/8; border-radius:var(--radius-m); overflow:hidden;
+    border:1px solid var(--border); background:#0d0f14;
+  }
+  .slideshow-viewport:focus{ outline:none; }
+  .slides-track{ display:flex; height:100%; transition:transform .6s cubic-bezier(.65,0,.35,1); will-change:transform; }
+  .slide{ min-width:100%; height:100%; }
   .g-placeholder{
     width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
     background:linear-gradient(155deg,#1b1710,#100e0b); position:relative; cursor:default;
   }
-  .g-placeholder svg{ width:24px; height:24px; opacity:0.4; color:var(--accent-warm); }
-  .g-placeholder .g-label{ font-family:var(--font-mono); font-size:11px; color:var(--text-dim); }
+  .g-placeholder svg{ width:30px; height:30px; opacity:0.4; color:var(--accent-warm); }
+  .g-placeholder .g-label{ font-family:var(--font-mono); font-size:12px; color:var(--text-dim); }
   .g-placeholder .g-exif{
-    position:absolute; bottom:10px; left:12px; right:12px; font-family:var(--font-mono);
-    font-size:10.5px; color:rgba(255,255,255,0.35); opacity:0; transition:opacity .3s ease;
+    position:absolute; bottom:16px; left:20px; font-family:var(--font-mono);
+    font-size:11px; color:rgba(255,255,255,0.4);
   }
-  .gallery-tile:hover .g-exif{ opacity:1; }
-  /* To use a real photo: replace .g-placeholder's contents with an <img> tag. */
+  /* To use a real photo: replace a .g-placeholder's contents with an <img> tag covering the slide. */
+
+  .slide-btn{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+    width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+    background:rgba(12,15,21,0.55); backdrop-filter:blur(6px); border:1px solid var(--border-strong);
+    color:var(--text); transition:all .25s ease;
+  }
+  .slide-btn:hover{ border-color:var(--accent-warm); color:var(--accent-warm); }
+  .slide-btn.prev{ left:16px; } .slide-btn.next{ right:16px; }
+  .slide-btn svg{ width:16px; height:16px; }
+
+  .slide-counter{
+    position:absolute; top:16px; right:16px; z-index:5; font-family:var(--font-mono); font-size:11px;
+    color:var(--text-muted); background:rgba(12,15,21,0.55); backdrop-filter:blur(6px);
+    padding:6px 11px; border-radius:20px; letter-spacing:0.03em;
+  }
+
+  .slide-dots{ display:flex; justify-content:center; gap:10px; margin-top:22px; }
+  .slide-dot{
+    width:8px; height:8px; border-radius:50%; border:none; padding:0; background:var(--border-strong);
+    transition:all .3s ease;
+  }
+  .slide-dot.active{ background:var(--accent-warm); width:24px; border-radius:5px; }
 
   .reel-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-bottom:52px; }
   .reel-card{
@@ -329,8 +356,7 @@
     .about-grid{ grid-template-columns:1fr; gap:34px; }
     .skills-grid{ grid-template-columns:repeat(2,1fr); }
     .project-grid{ grid-template-columns:repeat(2,1fr); }
-    .gallery-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:130px; }
-    .gallery-tile:nth-child(1){ grid-column:span 2; grid-row:span 1; }
+    .slideshow-viewport{ aspect-ratio:4/3; }
     .reel-row{ grid-template-columns:1fr; }
     .contact-inner{ grid-template-columns:1fr; gap:36px; }
   }
@@ -338,7 +364,9 @@
     section{ padding:70px 0; }
     .skills-grid{ grid-template-columns:1fr; }
     .project-grid{ grid-template-columns:1fr; }
-    .gallery-grid{ grid-template-columns:1fr 1fr; }
+    .slideshow-viewport{ aspect-ratio:3/4; }
+    .slide-btn{ width:38px; height:38px; }
+    .g-placeholder .g-exif{ left:14px; bottom:14px; font-size:10px; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -569,14 +597,30 @@
       <p>Photography and videography — the part of me that doesn't need Wi-Fi.</p>
     </div>
 
-    <div class="gallery-grid reveal">
-      <!-- 6 placeholder tiles — replace each .g-placeholder with an <img> tag when ready -->
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/1.8]</span></div></div>
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/2]</span></div></div>
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 24mm f/4]</span></div></div>
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 85mm f/1.4]</span></div></div>
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/2.8]</span></div></div>
-      <div class="gallery-tile"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/1.8]</span></div></div>
+    <div class="slideshow reveal">
+      <div class="slideshow-viewport vf-frame" id="slideshowViewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="Photography gallery">
+        <div class="slides-track" id="slidesTrack">
+          <!-- 6 placeholder slides — replace each .g-placeholder with an <img> tag (covering the .slide) when ready -->
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/1.8]</span></div></div>
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/2]</span></div></div>
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 24mm f/4]</span></div></div>
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 85mm f/1.4]</span></div></div>
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 35mm f/2.8]</span></div></div>
+          <div class="slide"><div class="g-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg><span class="g-label">Add photo</span><span class="g-exif">[Location — 50mm f/1.8]</span></div></div>
+        </div>
+
+        <button class="slide-btn prev" id="slidePrev" aria-label="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <button class="slide-btn next" id="slideNext" aria-label="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <span class="slide-counter" id="slideCounter">01 / 06</span>
+
+        <i class="vf-corner vf-corner--tl"></i><i class="vf-corner vf-corner--tr"></i>
+        <i class="vf-corner vf-corner--bl"></i><i class="vf-corner vf-corner--br"></i>
+      </div>
+      <div class="slide-dots" id="slideDots"></div>
     </div>
 
     <div class="reveal">
@@ -683,6 +727,80 @@
       document.getElementById('heroPortrait').classList.add('is-active');
     }, 350);
   });
+
+  // Creative gallery slideshow
+  (function initSlideshow(){
+    const viewport = document.getElementById('slideshowViewport');
+    if (!viewport) return;
+    const track = document.getElementById('slidesTrack');
+    const slides = track.children;
+    const total = slides.length;
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+    const counter = document.getElementById('slideCounter');
+    const dotsWrap = document.getElementById('slideDots');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let index = 0;
+    let timer = null;
+
+    // Build dots
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    }
+    const dots = dotsWrap.children;
+
+    function pad(n){ return String(n).padStart(2, '0'); }
+
+    function render(){
+      track.style.transform = `translateX(-${index * 100}%)`;
+      counter.textContent = `${pad(index + 1)} / ${pad(total)}`;
+      Array.from(dots).forEach((d, i) => d.classList.toggle('active', i === index));
+    }
+
+    function goTo(i){
+      index = (i + total) % total;
+      render();
+    }
+    function next(){ goTo(index + 1); }
+    function prev(){ goTo(index - 1); }
+
+    function startAutoplay(){
+      if (reduceMotion) return;
+      stopAutoplay();
+      timer = setInterval(next, 4500);
+    }
+    function stopAutoplay(){ if (timer) { clearInterval(timer); timer = null; } }
+
+    nextBtn.addEventListener('click', () => { next(); startAutoplay(); });
+    prevBtn.addEventListener('click', () => { prev(); startAutoplay(); });
+
+    viewport.addEventListener('mouseenter', stopAutoplay);
+    viewport.addEventListener('mouseleave', startAutoplay);
+    viewport.addEventListener('focusin', stopAutoplay);
+    viewport.addEventListener('focusout', startAutoplay);
+
+    viewport.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight'){ next(); startAutoplay(); }
+      if (e.key === 'ArrowLeft'){ prev(); startAutoplay(); }
+    });
+
+    // touch swipe
+    let touchStartX = 0;
+    viewport.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; stopAutoplay(); }, { passive: true });
+    viewport.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diff) > 40) { diff < 0 ? next() : prev(); }
+      startAutoplay();
+    }, { passive: true });
+
+    setTimeout(() => viewport.classList.add('is-active'), 400);
+    render();
+    startAutoplay();
+  })();
 </script>
 
 </body>
