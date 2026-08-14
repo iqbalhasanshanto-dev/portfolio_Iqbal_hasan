@@ -184,8 +184,12 @@
         <div class="tl-head"><h3>University Programming Club Competition</h3><time>May 2026</time></div>
         <span class="tl-org">University Programming Club</span>
         <ul>
-          <li>Competed in Code Harbour, Navigating Challenges : Season 4, Ai hackathons,  RSVU presents Robo Spark 1.0 and so on</li>
+          <li>Competed in Code Harbour, Navigating Challenges : Season 4, Ai hackathons,  RSVU presents Robo Spark 1.0, BYD presents 1st Bangladesh Formula Student and Automotive Engineering Summit organized by MIST Blitz and so on</li>
         </ul>
+        <button type="button" class="btn btn--ghost tl-cta" data-cert="assets/certificates/university-programming-club.jpg" data-cert-alt="University Programming Club Competition certificate">Code Harbour: season 4 certificate</button>
+        <button type="button" class="btn btn--ghost tl-cta" data-cert="assets/certificates/UI/UX Design Hackathon.jpg" data-cert-alt="University Programming Club Competition certificate">UI/UX Design Hackathon certificate</button>
+        <button type="button" class="btn btn--ghost tl-cta" data-cert="assets/certificates/Inception Workshop.pdf" data-cert-alt="University Programming Club Competition certificate"> Inception Workshop certificate</button>
+        <button type="button" class="btn btn--ghost tl-cta" data-cert="assets/certificates/byd-automotive-summit.pdf" data-cert-alt="University Programming Club Competition certificate"> BYD-automotive-summit</button>
       </div>
 
       <div class="tl-item">
@@ -194,15 +198,6 @@
         <ul>
           <li>Regular participant in hackathons and competitive programming contests — building and shipping under a clock.</li>
         </ul>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-head"><h3>BYD presents 1st Bangladesh Formula Student and Automotive Engineering Summit </h3><time>2026</time></div>
-        <span class="tl-org">MST</span>
-        <ul>
-          <li>Took part in the technical session of BYD presents 1st Bangladesh Formula Student and Automotive Engineering Summit, Organized by MIST Blitz, engaging with the engineering concepts behind the automotive systems covered.</li>
-        </ul>
-        <a href="#" target="_blank" rel="noopener" class="btn btn--ghost tl-cta"><!-- EDIT: link to certificate --> View Certificate</a>
       </div>
     </div>
   </div>
@@ -304,6 +299,14 @@
 <button class="top-btn" id="topBtn" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
+
+<!-- Certificate lightbox — opened by any button with a data-cert="assets/certificates/xxx.jpg" attribute -->
+<div class="cert-lightbox" id="certLightbox">
+  <button class="cert-lightbox-close" id="certLightboxClose" aria-label="Close certificate">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+  </button>
+  <img id="certLightboxImg" src="" alt="Certificate">
+</div>
 
 <script src="script.js"></script>
 

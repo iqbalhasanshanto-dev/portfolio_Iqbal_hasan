@@ -3,6 +3,13 @@
    Add an entry to a list below to update the site — no HTML editing required.
 ========================================================= */
 
+/* HOW TO ADD PROJECT IMAGES (no hosted links needed):
+   1. Make a folder like assets/projects/<project-name>/ next to index.html.
+   2. Drop your screenshots/photos in there (e.g. 1.jpg, 2.jpg, 3.jpg).
+   3. List their local paths in that project's "images" array below.
+   - Leave "images" as an empty array [] to keep the placeholder icon.
+   - One image = static thumbnail. Two or more = auto-rotating mini slideshow. */
+
 const PROJECTS = [
   {
     name: "Clear Sign",
@@ -14,6 +21,7 @@ const PROJECTS = [
     tags: ["Flagship", "Healthcare", "Mobile"],
     codeUrl: null,
     liveUrl: null,
+    images: [], // e.g. ["assets/projects/clear-sign/1.jpg", "assets/projects/clear-sign/2.jpg"]
   },
   {
     name: "Expense Tracker",
@@ -24,6 +32,7 @@ const PROJECTS = [
     tags: ["Data Handling", "UI/UX", "Full-Stack"],
     codeUrl: null,
     liveUrl: null,
+    images: [], // e.g. ["assets/projects/expense-tracker/1.jpg"]
   },
   {
     name: "View-Basis",
@@ -33,11 +42,12 @@ const PROJECTS = [
     description: "A published website focused on clean frontend execution — from layout and responsiveness to a smooth path from local build to live deployment.",
     tags: ["Frontend", "Deployment"],
     codeUrl: null,
-    liveUrl: "#", // EDIT: live URL
+    liveUrl: "https://vupc-official-web.vercel.app/",
+    images: [], // e.g. ["assets/projects/view-basis/1.jpg"]
   },
 
   // Add future hardware / AI projects here, same shape:
-  // { name:"", type:"", status:"dev", statusLabel:"In Development", description:"", tags:[], codeUrl:null, liveUrl:null },
+  // { name:"", type:"", status:"dev", statusLabel:"In Development", description:"", tags:[], codeUrl:null, liveUrl:null, images:[] },
 ];
 
 const GALLERY = [
@@ -68,7 +78,11 @@ function renderProjects() {
 
   grid.innerHTML = PROJECTS.map(p => `
     <div class="project-card">
-      <div class="project-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg></div>
+      <div class="project-thumb${p.images && p.images.length ? ' has-images' : ''}">
+        ${p.images && p.images.length
+          ? p.images.map((src, i) => `<img class="project-thumb-slide${i === 0 ? ' active' : ''}" src="${src}" alt="${p.name} screenshot ${i + 1}" loading="lazy">`).join('')
+          : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg>`}
+      </div>
       <div class="project-body">
         <div class="project-top">
           <span class="status-pill ${statusClass[p.status]}"><span class="dot"></span>${p.statusLabel}</span>
@@ -90,6 +104,54 @@ function renderProjects() {
       <span>More on GitHub →</span>
     </a>
   `;
+}
+
+/* =========================================================
+   Project thumbnail mini-slideshows (auto-rotate when a
+   project has 2+ images)
+========================================================= */
+function initProjectThumbSlideshows() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.project-thumb.has-images').forEach(thumb => {
+    const slides = thumb.querySelectorAll('.project-thumb-slide');
+    if (slides.length < 2 || reduceMotion) return;
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 3200);
+  });
+}
+
+/* =========================================================
+   Certificate lightbox — click "View Certificate" to see the
+   image inline instead of opening a link
+========================================================= */
+function initCertLightbox() {
+  const overlay = document.getElementById('certLightbox');
+  if (!overlay) return;
+  const img = document.getElementById('certLightboxImg');
+  const closeBtn = document.getElementById('certLightboxClose');
+
+  function open(src, alt) {
+    img.src = src;
+    img.alt = alt || 'Certificate';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  document.querySelectorAll('[data-cert]').forEach(btn => {
+    btn.addEventListener('click', () => open(btn.getAttribute('data-cert'), btn.getAttribute('data-cert-alt')));
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 }
 
 /* =========================================================
@@ -198,9 +260,11 @@ function initTyping() {
 ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
+  initProjectThumbSlideshows();
   renderReels();
   initStarfield();
   initTyping();
+  initCertLightbox();
 
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
