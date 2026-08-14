@@ -1,15 +1,6 @@
 /* =========================================================
    CONTENT DATA
-   Add an entry to a list below to update the site — no HTML editing required.
 ========================================================= */
-
-/* HOW TO ADD PROJECT IMAGES (no hosted links needed):
-   1. Make a folder like assets/projects/<project-name>/ next to index.html.
-   2. Drop your screenshots/photos in there (e.g. 1.jpg, 2.jpg, 3.jpg).
-   3. List their local paths in that project's "images" array below.
-   - Leave "images" as an empty array [] to keep the placeholder icon.
-   - One image = static thumbnail. Two or more = auto-rotating mini slideshow. */
-
 const PROJECTS = [
   {
     name: "Clear Sign",
@@ -21,7 +12,7 @@ const PROJECTS = [
     tags: ["Flagship", "Healthcare", "Mobile"],
     codeUrl: null,
     liveUrl: null,
-    images: [], // e.g. ["assets/projects/clear-sign/1.jpg", "assets/projects/clear-sign/2.jpg"]
+    images: ["assets/projects/clearsign/img.jpeg"],
   },
   {
     name: "Expense Tracker",
@@ -32,7 +23,7 @@ const PROJECTS = [
     tags: ["Data Handling", "UI/UX", "Full-Stack"],
     codeUrl: null,
     liveUrl: null,
-    images: [], // e.g. ["assets/projects/expense-tracker/1.jpg"]
+    images: ["assets/projects/expense-traker/img.jpg"],
   },
   {
     name: "View-Basis",
@@ -43,29 +34,23 @@ const PROJECTS = [
     tags: ["Frontend", "Deployment"],
     codeUrl: null,
     liveUrl: "https://vupc-official-web.vercel.app/",
-    images: [], // e.g. ["assets/projects/view-basis/1.jpg"]
+    images: ["assets/projects/VUPC/img.jpg"],
   },
-
-  // Add future hardware / AI projects here, same shape:
-  // { name:"", type:"", status:"dev", statusLabel:"In Development", description:"", tags:[], codeUrl:null, liveUrl:null, images:[] },
 ];
 
 const GALLERY = [
-  { title: "Orion Nebula", exif: "M42 — tracked, 40 frames stacked", gradient: "linear-gradient(155deg,#1a2a3d,#100e0b)" },
-  { title: "Comet trail", exif: "45s exposure — ISO 3200", gradient: "linear-gradient(155deg,#0f2027,#100e0b)" },
-  { title: "Planetary alignment", exif: "4-planet — dawn horizon", gradient: "linear-gradient(155deg,#2d1b1b,#100e0b)" },
-  { title: "Milky Way core", exif: "Bortle 3 — stacked", gradient: "linear-gradient(155deg,#101820,#100e0b)" },
-  { title: "Lunar surface", exif: "1/250s — tracked mount", gradient: "linear-gradient(155deg,#1c1c1c,#100e0b)" },
-  { title: "Coastal long exposure", exif: "ND1000 — 120s", gradient: "linear-gradient(155deg,#0d1f2d,#100e0b)" },
-
-  // Add more shots the same way — { title, exif, gradient } — or add imageUrl: "assets/your-photo.jpg"
-  // to have that photo render instead of the gradient placeholder.
+  { title: "Orion Nebula", exif: "M42 — tracked, 40 frames stacked", imageUrl: "assets/slideshow/1.png" },
+  { title: "Comet trail", exif: "45s exposure — ISO 3200", imageUrl: "assets/slideshow/2.png" },
+  { title: "Planetary alignment", exif: "4-planet — dawn horizon", imageUrl: "assets/slideshow/3.jpg" },
+  { title: "Milky Way core", exif: "Bortle 3 — stacked", imageUrl: "assets/slideshow/4.jpg" },
+  { title: "Lunar surface", exif: "1/250s — tracked mount", imageUrl: "assets/slideshow/5.jpg" },
+  { title: "Coastal long exposure", exif: "ND1000 — 120s", imageUrl: "assets/slideshow/6.jpg" },
 ];
 
 const VIDEOS = [
-  { title: "Edit breakdown — pacing & color", embedUrl: "" }, // EDIT: paste a YouTube/Vimeo embed URL
-  { title: "Published review, full cut", embedUrl: "" },
-  { title: "B-roll & sound design reel", embedUrl: "" },
+  { title: "Reel — Facebook", thumbnailUrl: "assets/reels/1.jpg", url: "https://www.facebook.com/reel/2211990066308727/" },
+  { title: "Edit breakdown — pacing & color", thumbnailUrl: "assets/reels/2.jpg", url: "https://www.facebook.com/reel/1678656513360557/" },
+  { title: "Reel — Instagram", thumbnailUrl: "assets/reels/3.jpg", url: "https://www.instagram.com/reel/DbQ-09NEmgd/" },
 ];
 
 /* =========================================================
@@ -100,15 +85,14 @@ function renderProjects() {
       </div>
     </div>
   `).join('') + `
-    <a href="#" class="project-card more">
+    <a href="https://github.com/iqbalhasanshanto-dev?tab=repositories" class="project-card more">
       <span>More on GitHub →</span>
     </a>
   `;
 }
 
 /* =========================================================
-   Project thumbnail mini-slideshows (auto-rotate when a
-   project has 2+ images)
+   Project thumbnail mini-slideshows
 ========================================================= */
 function initProjectThumbSlideshows() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -156,20 +140,29 @@ function initCertLightbox() {
 
 /* =========================================================
    RENDER: Reels
+   Each card is a static thumbnail image that links straight
+   out to the original Facebook/Instagram post — no live embed
+   is loaded, so every card shares the same fixed aspect ratio
+   regardless of the source platform's own dimensions.
 ========================================================= */
 function renderReels() {
   const row = document.getElementById('reelRow');
   if (!row) return;
-  row.innerHTML = VIDEOS.map(v => `
-    <div class="reel-card">
-      <div class="reel-thumb">
-        ${v.embedUrl
-          ? `<iframe src="${v.embedUrl}" title="${v.title}" loading="lazy" allowfullscreen></iframe>`
-          : `<div class="play-btn"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div>`}
+  row.innerHTML = VIDEOS.map(v => {
+    const hasThumb = !!v.thumbnailUrl;
+    return `
+    <a class="reel-card" href="${v.url}" target="_blank" rel="noopener">
+      <div class="reel-thumb${hasThumb ? '' : ' thumb-missing'}">
+        ${hasThumb
+          ? `<img src="${v.thumbnailUrl}" alt="${v.title}" loading="lazy" onerror="this.parentElement.classList.add('thumb-missing')">`
+          : ''}
+        <div class="reel-play-overlay"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8V4z"/></svg></div>
+        <span class="reel-thumb-hint">Drop a thumbnail into /assets/reels</span>
       </div>
-      <div class="reel-body"><h3>${v.title}</h3><p>${v.embedUrl ? 'Embedded' : '[Link to YouTube / Vimeo / Drive]'}</p></div>
-    </div>
-  `).join('');
+      <div class="reel-body"><h3>${v.title}</h3><p>Watch on the original platform</p></div>
+    </a>
+  `;
+  }).join('');
 }
 
 /* =========================================================
@@ -333,10 +326,12 @@ document.addEventListener('DOMContentLoaded', () => {
     track.innerHTML = GALLERY.map(g => `
       <div class="slide">
         <div class="g-placeholder" style="${g.imageUrl ? `background-image:url('${g.imageUrl}')` : `background:${g.gradient}`}">
+          ${g.imageUrl ? '' : `
           <div class="g-veil"></div>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
           <span class="g-label">${g.title}</span>
           <span class="g-exif">${g.exif}</span>
+          `}
         </div>
       </div>
     `).join('');
