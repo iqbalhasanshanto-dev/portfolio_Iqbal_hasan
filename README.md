@@ -52,8 +52,7 @@ Portfolio/
 No build tools required — it's static HTML/CSS/JS.
 
 ```bash
-cd portfolio
-git clone [https://github.com/iqbalhasanshanto-dev/portfolio.git](https://github.com/iqbalhasanshanto-dev/portfolio_Iqbal_hasan)
+git clone https://github.com/iqbalhasanshanto-dev/portfolio_Iqbal_hasan
 ```
 
 Then just open `index.html` in a browser, or serve it locally:
