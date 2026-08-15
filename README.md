@@ -2,7 +2,7 @@
 
 A personal portfolio site built from scratch with vanilla HTML, CSS, and JavaScript — no frameworks, no build step. Showcases my work across app development, web development, and AI, alongside a parallel practice in astrophotography and video editing.
 
-**🔗 Live site:** [add your deployment link here]
+**🔗 Live site:** [https://iqbalhasan-portfolio.netlify.app/]
 
 ![status](https://img.shields.io/badge/status-active-brightgreen) ![made with](https://img.shields.io/badge/made%20with-HTML%2FCSS%2FJS-1f6feb)
 
@@ -52,8 +52,8 @@ Portfolio/
 No build tools required — it's static HTML/CSS/JS.
 
 ```bash
-git clone https://github.com/iqbalhasanshanto-dev/portfolio.git
 cd portfolio
+git clone [https://github.com/iqbalhasanshanto-dev/portfolio.git](https://github.com/iqbalhasanshanto-dev/portfolio_Iqbal_hasan)
 ```
 
 Then just open `index.html` in a browser, or serve it locally:
