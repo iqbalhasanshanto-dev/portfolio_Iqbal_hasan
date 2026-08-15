@@ -12,7 +12,7 @@ const PROJECTS = [
     tags: ["Flagship", "Healthcare", "Mobile"],
     codeUrl: null,
     liveUrl: null,
-    images: ["assets/projects/clearsign/img.jpeg"],
+    images: ["assets/projects/clearsign/img.webp"],
   },
   {
     name: "Expense Tracker",
@@ -23,7 +23,7 @@ const PROJECTS = [
     tags: ["Data Handling", "UI/UX", "Full-Stack"],
     codeUrl: null,
     liveUrl: null,
-    images: ["assets/projects/expense-traker/img.jpg"],
+    images: ["assets/projects/expense-traker/img.webp"],
   },
   {
     name: "View-Basis",
@@ -34,7 +34,7 @@ const PROJECTS = [
     tags: ["Frontend", "Deployment"],
     codeUrl: null,
     liveUrl: "https://vupc-official-web.vercel.app/",
-    images: ["assets/projects/VUPC/img.jpg"],
+    images: ["assets/projects/VUPC/img.webp"],
   },
 ];
 
